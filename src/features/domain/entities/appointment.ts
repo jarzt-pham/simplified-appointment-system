@@ -1,7 +1,7 @@
 export type AppointmentCreatePayload = {
   id: string;
   date: Date;
-  time: number;
+  time: string;
   duration: number;
   availableSlots: number;
   scheduling: Date;
@@ -9,14 +9,14 @@ export type AppointmentCreatePayload = {
 
 export type AppointmentUpdatePayload = {
   date: Date;
-  time: number;
+  time: string;
   availableSlots: number;
 };
 
 export interface IAppointment {
         id: string;
         date: Date;
-        time: number;
+        time: string;
         availableSlots: number;
         create({ id, date, time, availableSlots }: AppointmentCreatePayload): Appointment;
         update({ date, time, availableSlots }: AppointmentCreatePayload): Appointment;
@@ -25,7 +25,7 @@ export interface IAppointment {
 export class Appointment implements IAppointment {
   private _id: string;
   private _date: Date;
-  private _time: number;
+  private _time: string;
   private _duration: number;
   private _availableSlots: number;
   private _scheduling: Date;
@@ -46,11 +46,11 @@ export class Appointment implements IAppointment {
     this._date = value;
   }
 
-  get time(): number {
+  get time(): string {
     return this._time;
   }
 
-  set time(value: number) {
+  set time(value: string) {
     this._time = value;
   }
 

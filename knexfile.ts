@@ -1,3 +1,3 @@
-import { PostgresqlConfigurationParameter } from "./src/infrastructures";
+import { POSTGRESQL_CONFIGURATION } from "./src/infrastructures";
 
-module.exports = PostgresqlConfigurationParameter
+module.exports = POSTGRESQL_CONFIGURATION

@@ -1,6 +1,6 @@
 import knex, { Knex } from "knex";
 
-export const PostgresqlConfigurationParameter: Knex.Config  = Object.freeze({
+export const POSTGRESQL_CONFIGURATION: Knex.Config  = Object.freeze({
     client: "pg",
     connection: {
         host: process.env.POSTGRES_HOST,
@@ -18,6 +18,6 @@ export const PostgresqlConfigurationParameter: Knex.Config  = Object.freeze({
 
 export class PostgresqlConfiguration {
     static async createKnexConnection() {
-        return knex(PostgresqlConfigurationParameter);
+        return knex(POSTGRESQL_CONFIGURATION);
     }
 }
