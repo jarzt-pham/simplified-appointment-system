@@ -1,7 +1,7 @@
 ## App
-> docker-compose --env-file .env up -d
-> npm run db:setup
-> npm run dev
+- > docker-compose --env-file .env up -d
+- > npm run db:setup
+- > npm run dev
 
 
 ## Idea
