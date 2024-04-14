@@ -41,9 +41,12 @@ export class CreateAnAppointmentUseCase implements ICreateAnAppointmentUseCase {
 
     const settings = new Map();
     settingsDto.forEach((setting) => {
-      settings.set(setting.key, setting.value);
+      settings.set(setting.key, setting.value.data);
     })
   
+    //will enhance this later
+    const maxSlots = settings.get('max_slots');
+    
     //find
     let isExist: AppointmentDto[];
     try {
@@ -52,9 +55,13 @@ export class CreateAnAppointmentUseCase implements ICreateAnAppointmentUseCase {
       console.log({ err });
       throw new Error('Error fetching appointments');
     }
+
+    if(isExist.length > 0 ){
+      throw new Error('Appointment is full slot');
+    }
+   
     
     let appointmentDto: AppointmentDto;
-
     const entity = new Appointment();
     entity.create({
       id: generateUuid(),

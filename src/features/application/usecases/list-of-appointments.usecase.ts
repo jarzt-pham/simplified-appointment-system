@@ -1,9 +1,12 @@
+import { CONFIGURATION } from '@/configs';
 import { AppointmentDto } from '@/features/domain';
 import {
   AppointmentDao,
   IAppointmentDao,
 } from '@/features/infrastructure/daos/appointment.dao';
+import { TimeArr } from '@/utils';
 import { Injectable } from '@nestjs/common';
+import * as moment from "moment";
 
 export type ListOfAppointmentsUseCaseInput = {
   date: string;
@@ -32,10 +35,30 @@ export class ListOfAppointmentsUseCase implements IListOfAppointmentsUseCase {
       throw new Error('Error fetching appointments');
     }
 
-    return appointmentsDto;
+    return mapperAppointments(appointmentsDto);
   }
 }
 
-export const mapperAppointments = (payload: AppointmentDao[]) => {
-  return payload.map((appointment: any) => {});
+export const mapperAppointments = (payload: AppointmentDto[]) => {
+  const dateParse = moment(payload[0].date).format(CONFIGURATION.DATE_FORMAT);
+
+  const output = [];
+  TimeArr.forEach((time) => {
+    const isExist = payload.find((appointment) => appointment.time === time);
+
+    if (isExist) {
+      output.push({
+        date: dateParse,
+        time,
+        available_slots: 0,
+      });
+    } else
+      output.push({
+        date: dateParse,
+        time,
+        available_slots: 1,
+      });
+  });
+
+  return output;
 };
